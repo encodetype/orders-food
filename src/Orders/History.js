@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Layout from '../Layouts/Layout.js';
 import OrdersList from './OrdersList.js';
-import OrdersItem from './OrdersItem.js';
+import { connect } from 'react-redux'
 
 
 class OrdersHistory extends Component{
@@ -13,12 +13,16 @@ class OrdersHistory extends Component{
   render(){
     return (
       <Layout>
-        <OrdersList title="Orders History" >
-          <OrdersItem listType="history" />
-        </OrdersList>
+        <OrdersList title="Orders History" listType="history" foodOrder={ this.props.foodOrder } />
       </Layout>
     )
   }
 }
 
-export default OrdersHistory;
+const mapStateToProps = (state) => {
+  return {
+    foodOrder:state[0].orders
+  }
+}
+
+export default connect(mapStateToProps,null)(OrdersHistory);

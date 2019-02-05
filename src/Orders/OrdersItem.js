@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
 import ta from 'time-ago';
-
+import { connect } from 'react-redux'
 import { actionUpdateOrderState } from '../redux/actions.js';
 
 class OrdersItem extends Component{
@@ -21,7 +20,7 @@ class OrdersItem extends Component{
 
   renderAction(isDone,id){
     if(isDone){
-      return;
+      return (<span className="label label-success" >Done</span>);
     }
 
     return (<button className="btn btn-primary" onClick={ this.updateOrderStatus } id={ id } >To Serve</button>)
@@ -52,11 +51,6 @@ class OrdersItem extends Component{
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    foodOrder:state[0].orders || []
-  }
-}
 
 const mapDispatchToProps = dispatch => ({
   updateOrderToState : (id) => { dispatch(actionUpdateOrderState(id)) }
@@ -64,4 +58,4 @@ const mapDispatchToProps = dispatch => ({
 
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(OrdersItem);
+export default connect(null,mapDispatchToProps)(OrdersItem);

@@ -95,9 +95,7 @@ class OrdersIndex extends Component{
         </form>
         <br/>
         <br/>
-      <OrdersList title="Current Orders" >
-          <OrdersItem />
-        </OrdersList>
+      <OrdersList title="Current Orders" foodOrder={ this.props.foodOrder } />
       </Layout>
     )
   }
@@ -107,4 +105,10 @@ const mapDispatchToProps = dispatch => ({
   addOrderToState : (item) => { dispatch(actionAddOrder(item)) }
 });
 
-export default connect(null,mapDispatchToProps)(OrdersIndex);
+const mapStateToProps = (state) => {
+  return {
+    foodOrder:state[0].orders
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(OrdersIndex);

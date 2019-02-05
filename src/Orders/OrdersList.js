@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
+import OrdersItem from './OrdersItem';
+
 
 class OrdersList extends Component{
 
   constructor(props){
     super(props);
+
+    this.renderOrderItem = this.renderOrderItem.bind(this);
+  }
+
+  renderOrderItem(){
+    if( this.props.foodOrder.length > 0 ){
+      return (<OrdersItem listType={ this.props.listType } foodOrder={ this.props.foodOrder } />)
+    }
+
+    return (<tr colSpan="5" ><td>No data</td></tr>)
   }
 
   render(){
@@ -24,7 +36,7 @@ class OrdersList extends Component{
                 </tr>
               </thead>
               <tbody>
-                { this.props.children }
+                { this.renderOrderItem() }
               </tbody>
             </table>
           </div>
@@ -33,5 +45,6 @@ class OrdersList extends Component{
     )
   }
 }
+
 
 export default OrdersList;
