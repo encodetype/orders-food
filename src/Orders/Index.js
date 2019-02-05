@@ -22,7 +22,6 @@ class OrdersIndex extends Component{
     this.validateForm = this.validateForm.bind(this);
   }
 
-
   renderInputText(args){
     return (<div className={ `form-group ${  this.state.errors[args.fieldName] !== "" && this.state.errors[args.fieldName] !== undefined  ? 'has-error' : '' } `}  >
       <label>{ args.label }</label>
@@ -37,6 +36,15 @@ class OrdersIndex extends Component{
     fields[name] = event.target.value;
 
     this.setState({ "fields":fields });
+
+    let errors = this.state.errors;
+    if( event.target.value != "" ){
+      delete errors[event.target.name];
+    }else{
+      errors[event.target.name] = 'Error';
+    }
+
+    this.setState({ errors });
   }
 
   validateForm(){
