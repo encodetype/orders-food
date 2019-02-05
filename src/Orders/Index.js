@@ -33,18 +33,17 @@ class OrdersIndex extends Component{
     let name = event.target.name;
 
     let fields = this.state.fields || {};
+    let errors = this.state.errors;
+
     fields[name] = event.target.value;
 
-    this.setState({ "fields":fields });
-
-    let errors = this.state.errors;
-    if( event.target.value != "" ){
+    if( event.target.value.trim() != "" ){
       delete errors[event.target.name];
     }else{
       errors[event.target.name] = 'Error';
     }
 
-    this.setState({ errors });
+    this.setState({ errors,fields });
   }
 
   validateForm(){
@@ -53,17 +52,17 @@ class OrdersIndex extends Component{
 
     let fields = this.state.fields;
 
-    if( ! fields['orders_table_no']  ){
+    if( ! fields['orders_table_no'] || fields['orders_table_no'].trim() === '' ){
       errors['orders_table_no'] = 'Error';
       validateState = false;
     }
 
-    if( ! fields['orders_food_name']  ){
+    if( ! fields['orders_food_name']  || fields['orders_food_name'].trim() === ''  ){
       errors['orders_food_name'] = 'Error';
       validateState = false;
     }
 
-    if( ! fields['orders_quantity']  ){
+    if( ! fields['orders_quantity']  || fields['orders_quantity'].trim() === ''  ){
       errors['orders_quantity'] = 'Error';
       validateState = false;
     }
@@ -87,7 +86,8 @@ class OrdersIndex extends Component{
           time: new Date()
       }
       this.props.addOrderToState(item);
-      this.setState({ fields:{} });
+
+      this.setState({ fields:{},errors:{} });
       e.target.reset();
     }
   }
